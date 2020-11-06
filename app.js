@@ -12,6 +12,7 @@ require('./routers/passport-setup');
 
 mongoose.connect("mongodb://localhost/online_mart", {useNewUrlParser: true, useUnifiedTopology: true });
 var port = process.env.PORT || 3000;
+app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/public'));
 app.use(methodOverride("_method"));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -41,7 +42,7 @@ app.get('/google', passport.authenticate('google', { scope: ['profile', 'email']
 
 app.get('/google/callback', passport.authenticate('google', { failureRedirect: '/failed' }),
   function(req, res) {
-    res.redirect('/');
+    res.redirect('/login');
   }
 );
 
