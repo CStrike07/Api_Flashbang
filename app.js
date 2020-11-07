@@ -17,7 +17,7 @@ require('./routers/passport-setup');
 
 //mongoose.connect("mongodb://localhost/online_mart", {useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connect("mongodb+srv://CStrike07:gsoc@2020@hack02.zagid.mongodb.net/Project0?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true });
-var port = process.env.PORT || 5000;
+var port = process.env.PORT || 3000;
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/public'));
 app.use(methodOverride("_method"));
