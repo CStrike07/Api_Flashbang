@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar"
 import Home from "./components/Home"
 import Signin from "./components/Signin"
 import Signup from "./components/Signup"
+import joblist from './components/JobList';
 
 class App extends Component {
   render() {
@@ -14,6 +15,8 @@ class App extends Component {
           <Route exact path='/' component = {Home}/>
           <Route path='/signin' component = {Signin}/>
           <Route path='/signup' component = {Signup}/>
+          <Route path='/joblist' component = {joblist}/>
+
           
 
         </div> 
