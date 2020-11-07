@@ -1,5 +1,4 @@
 require('dotenv').config()
-
 var express = require("express");
 cors = require('cors'),
 methodOverride = require("method-override"),
@@ -9,15 +8,13 @@ mongoose=require("mongoose"),
 User=require("./models/user"),
 passport = require('passport'),
 cookieSession = require('cookie-session'),
-
-
 app = express();
-app.use(cors())
+app.use(cors());
 require('./routers/passport-setup');
 
 //mongoose.connect("mongodb://localhost/online_mart", {useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connect("mongodb+srv://CStrike07:gsoc@2020@hack02.zagid.mongodb.net/Project0?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true });
-var port = process.env.PORT || 5000;
+var port = process.env.PORT || 3000;
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/public'));
 app.use(methodOverride("_method"));
