@@ -7,7 +7,6 @@ bodyParser=require("body-parser"),
 request = require('request'),
 mongoose=require("mongoose"),
 User=require("./models/user"),
-Buy=require("./models/buyer"),
 Review=require("./models/review"),
 Job=require("./models/job"),
 passport = require('passport'),
@@ -63,14 +62,16 @@ app.get('/logout', (req, res) => {
 app.get('/login', (req, res) => {
     res.render("login");
 });
-
+app.get('/home', (req, res) => {
+  res.render("job");
+});
 //all listed users
 app.get("/", function(req, res){
   User.find({}, function(err, users){
     if(err){
         console.log("ERROR!");
     } else {
-        res.render("demo3", {users: users, currentUser: req.user});
+        res.render("index", {users: users, currentUser: req.user});
     }
 });
 });
@@ -85,36 +86,16 @@ app.get("/users/:id", isLoggedIn, function(req, res){
 });
 });
 
-app.get("/buys/:id", isLoggedIn, function(req, res){
-  Buy.findById(req.params.id, function(err, foundBuy){
-    if(err){
-        console.log("ERROE!");
-    }else{
-        res.render("show", {buy: foundBuy});
-    }
-});
-});
-
 //User Profile
 
 app.get("/profile", isLoggedIn, function(req,res){
-  User.find({"_id": req.user._id}).populate("reviews").exec(function(err, users){
-      if(err){
-          console.log("ERROR!");
-      } else {
-          res.render("demo", {users: users, currentUser: req.user});
-      }
-  });
+  User.find({"_id": req.user._id}, function(err, users){
+    if(err){
+        console.log("ERROR!");
+    } else {
+        res.render("profile", {users: users, currentUser: req.user});
+    }
 });
-
-app.get("/myprofile", isLoggedIn, function(req,res){
-  Buy.find({"_id": req.user._id}, function(err, buys){
-      if(err){
-          console.log("ERROR!");
-      } else {
-          res.render(" ", {buys: buys, currentBuy: req.buy}); //link of profile page of buyer
-      }
-  });
 });
 
 app.get("/users/:id/edit", isLoggedIn, function(req,res){
@@ -123,16 +104,6 @@ app.get("/users/:id/edit", isLoggedIn, function(req,res){
           console.log("ERROE!");
       }else{
           res.render("edit", {user: foundUser});
-      }
-  });
-});
-
-app.get("/buys/:id/edit", isLoggedIn, function(req,res){
-  Buy.findById(req.params.id, function(err, foundBuy){
-      if(err){
-          console.log("ERROE!");
-      }else{
-          res.render(" ", {user: foundBuy}); //Edit form buyer
       }
   });
 });
@@ -146,16 +117,6 @@ app.put("/users/:id", isLoggedIn, function(req,res){
   }
  });
 });
-
-app.put("/buys/:id", isLoggedIn, function(req,res){
-  Buy.findByIdAndUpdate(req.params.id, req.body.user, function(err, updated){
-   if(err){
-       console.log("ERROR!");
-   }else{
-       res.redirect(" ");//To the profile of buyer
-   }
-  });
- });
 
 //Reviews Routes
 
@@ -194,7 +155,7 @@ app.get("/alljobs", function(req,res){
       if(err){
           console.log("ERROR!");
       } else {
-          res.render("demo5", {jobs: jobs});
+          res.render("job", {jobs: jobs});
       }
   });
 });
@@ -204,7 +165,7 @@ app.get("/myjobs", isLoggedIn, function(req,res){
       if(err){
           console.log("ERROR!");
       } else {
-          res.render("demo4", {jobs: jobs, currentUser: req.user});
+          res.render("myjobs", {jobs: jobs, currentUser: req.user});
       }
   });
 });
