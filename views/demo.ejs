@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <% users.forEach(function(user){ %>
+        <%= user %> <br>
+        <a href="/logout"> <button>Log Out</button> </a>
+        <a href="/users/<%= user._id %>/edit"> <button>Edit</button> </a>
+        <a href="/users/<%= user._id %>/reviews/new"> <button>review</button> </a>
+        <% user.reviews.forEach(function(review){ %>
+            <%= review.text %> <br>
+            <% }) %> 
+        <% }) %> 
+</body>
+</html>
