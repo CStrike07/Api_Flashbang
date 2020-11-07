@@ -16,8 +16,8 @@ app = express();
 app.use(cors());
 require('./routers/passport-setup');
 
-mongoose.connect("mongodb://localhost/hack_2", {useNewUrlParser: true, useUnifiedTopology: true });
-//mongoose.connect("mongodb+srv://CStrike07:gsoc@2020@cluster0.kwgfz.mongodb.net/Project0?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true });
+//mongoose.connect("mongodb://localhost/hack_2", {useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect("mongodb+srv://CStrike07:gsoc@2020@cluster0.kwgfz.mongodb.net/Project0?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true });
 var port = process.env.PORT || 3000;
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/public'));
@@ -214,7 +214,23 @@ app.get("/add", isLoggedIn, function(req,res){
 });
 
 app.post("/jobs", isLoggedIn, function(req,res){
-  Job.create(req.body.job, function(err, newJob){
+  var name=req.body.name;
+    var companey=req.body.companey;
+    var location=req.body.location;
+    var address=req.body.address;
+    var contactNo=req.body.contactNo; 
+    var title=req.body.title;
+    var email=req.body.email;
+    var description=req.body.description;
+    var salary=req.body.salary;
+    var requirements=req.body.requirements;
+    var applyLink=req.body.applyLink;
+    var author={
+        id: req.user._id,
+        username: req.user.username
+    };
+    var newaddJob={companey:companey,location:location,address:address,contactNo:contactNo,email:email,title:title,description:description,salary:salary,requirements:requirements,applyLink:applyLink,author:author};
+  Job.create(newaddJob, function(err, newJob){
       if(err){
           console.log("ERROR!");
       }else {

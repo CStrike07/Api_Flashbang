@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+var User=require("./user");
 Schema=mongoose.Schema;
 var jobSchema = new mongoose.Schema({
     author: {
