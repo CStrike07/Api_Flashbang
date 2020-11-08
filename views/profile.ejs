@@ -54,30 +54,31 @@
 
 <div class="container">
 <div class="row">
+  <% users.forEach(function(user){ %>
     <div class="col col-12">
         <div class="card" >
             <img class="card-img-top img-fluid" src="./vino-li-tQyuOdG159o-unsplash.jpg" alt="Card image cap">
             <div class="card-body">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Name:    <%= users.fullName %></li>
-                    <li class="list-group-item">Job Title:   <%= users.fullName %></li>
-                    <li class="list-group-item">Address:    <%= users.address %></li>
-                    <li class="list-group-item">ContactNo:  <%= users.contact %></li>
-                    <li class="list-group-item">Email:      <%= users.fullName %></li>
-                    <li class="list-group-item">whatsapp no.:      <%= users.whatsapp %></li>
-                    <li class="list-group-item">Skills:     <%= users.skills %></li>
-                    <li class="list-group-item">Hourly Cost:<%= users.costHour %></li>
-                    <li class="list-group-item">experience:<%= users.experience %> </li>
+                    <li class="list-group-item">Name:    <%= user.fullName %></li>
+                    <li class="list-group-item">Job Title:   <%= user.fullName %></li>
+                    <li class="list-group-item">Address:    <%= user.address %></li>
+                    <li class="list-group-item">ContactNo:  <%= user.contact %></li>
+                    <li class="list-group-item">Email:      <%= user.fullName %></li>
+                    <li class="list-group-item">whatsapp no.:      <%= user.whatsapp %></li>
+                    <li class="list-group-item">Skills:     <%= user.skills %></li>
+                    <li class="list-group-item">Hourly Cost:<%= user.costHour %></li>
+                    <li class="list-group-item">experience:<%= user.experience %> </li>
                   </ul>
                   <div class="card-body">
                     <a href="/add" class="card-link">Post a job</a>
                     <a href="/myjobs" class="card-link">Job posted by me</a>
-                    <a href="/users/<%= users._id %>/edit" class="card-link">Edit</a>
+                    <a href="/users/<%= user._id %>/edit" class="card-link">Edit</a>
                   </div>
             </div>
           </div>
     </div>
-    
+    <% }) %>
 </div>
  
 
