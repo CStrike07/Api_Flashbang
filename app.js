@@ -62,11 +62,11 @@ app.get('/logout', (req, res) => {
 app.get('/login', (req, res) => {
     res.render("login");
 });
-app.get('/home', (req, res) => {
-  res.render("job");
+app.get('/', (req, res) => {
+  res.render("landing");
 });
 //all listed users
-app.get("/", function(req, res){
+app.get("/index", function(req, res){
   User.find({}, function(err, users){
     if(err){
         console.log("ERROR!");
