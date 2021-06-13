@@ -9,12 +9,13 @@ mongoose=require("mongoose"),
 User=require("./models/user"),
 Review=require("./models/review"),
 Job=require("./models/job"),
+webpush=require('web-push'),
+path=require('path'),
 passport = require('passport'),
 cookieSession = require('cookie-session'),
 app = express();
 app.use(cors());
 require('./routers/passport-setup');
-
 //mongoose.connect("mongodb://localhost/hack_2", {useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connect("mongodb+srv://CStrike07:gsoc@2020@cluster0.kwgfz.mongodb.net/Project0?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true });
 var port = process.env.PORT || 3000;
@@ -58,6 +59,20 @@ app.get('/logout', (req, res) => {
     res.redirect('/');
 });
 
+//Notifiaction
+const publicVapidKey='BOj2djam2oukKi7vqdbCdnFt7g4oF0RkfFDIRcurt0XVgjjHxcV43RRrB4nzOLuAJqEe9Aieconkic7bdaH35oc';
+const privateVapidKey='Y4EF2-80Rkoo00xcAwg7vBefdP8s6ZLEsN43QnTyuIk';
+
+webpush.setVapidDetails('mailto:test@test.com', publicVapidKey, privateVapidKey);
+
+app.post("/subscribe", (req, res) => {
+  const subscription = req.body;
+  res.status(201).json({});
+  const payload = JSON.stringify({ title: "Push Test" });
+  webpush
+    .sendNotification(subscription, payload)
+    .catch(err => console.error(err));
+});
 
 app.get('/login', (req, res) => {
     res.render("login");
