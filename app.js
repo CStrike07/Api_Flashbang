@@ -17,7 +17,7 @@ app = express();
 app.use(cors());
 require('./routers/passport-setup');
 //mongoose.connect("mongodb://localhost/hack_2", {useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.connect("mongodb+srv://CStrike07:gsoc@2020@cluster0.kwgfz.mongodb.net/Project0?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGODB_CONFIG, {useNewUrlParser: true, useUnifiedTopology: true });
 var port = process.env.PORT || 3000;
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/public'));
@@ -60,8 +60,8 @@ app.get('/logout', (req, res) => {
 });
 
 //Notifiaction
-const publicVapidKey='BOj2djam2oukKi7vqdbCdnFt7g4oF0RkfFDIRcurt0XVgjjHxcV43RRrB4nzOLuAJqEe9Aieconkic7bdaH35oc';
-const privateVapidKey='Y4EF2-80Rkoo00xcAwg7vBefdP8s6ZLEsN43QnTyuIk';
+const publicVapidKey=process.env.VAPID_KEY;
+const privateVapidKey=process.env.PRIVATE_VAPID;
 
 webpush.setVapidDetails('mailto:test@test.com', publicVapidKey, privateVapidKey);
 
